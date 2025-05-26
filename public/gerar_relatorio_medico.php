@@ -15,12 +15,22 @@ $pacienteController = new PacienteController();
 
 try {
     $consultas = $consultaController->listarPorMedicoEmailEMesAno($email, $mes, $ano);
-
-    if (empty($consultas)) {
-        echo "<h3>Nenhuma consulta encontrada para o médico $email em $mes/$ano.</h3>";
-        exit;
-    }
-
+} catch (Exception $e) {
+    die("Erro ao gerar relatório: " . $e->getMessage());
+}
+?>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Pacientes Atendidos</title>
+    <link rel="stylesheet" href="../css/relatorio.css">
+</head>
+<body>
+<?php
+if (empty($consultas)) {
+    echo "<h3>Nenhuma consulta encontrada para o médico $email em $mes/$ano.</h3>";
+} else {
     echo "<h2>Relatório de Pacientes Atendidos</h2>";
     echo "<p><strong>Médico:</strong> $email</p>";
     echo "<p><strong>Período:</strong> $mes/$ano</p>";
@@ -39,11 +49,9 @@ try {
     }
 
     echo "</table>";
-} catch (Exception $e) {
-    echo "Erro ao gerar relatório: " . $e->getMessage();
 }
-
 ?>
 <br><br>
 <button class="btn-voltar" onclick="location.href='login_assistente.php'">Voltar</button>
-
+</body>
+</html>

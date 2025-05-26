@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $erro_login = "Este usuário não é um médico.";
         }
     } else {
-        $erro_login = "E-mail ou senha inválidos.";
+        $erro_login = "Senha inválida.";
     }
 }
 ?>
@@ -47,15 +47,53 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <head>
     <meta charset="UTF-8" />
     <title>Login Médico</title>
+    <link rel="stylesheet" href="../css/login.css">
 </head>
 <body>
-<div class="container" style="text-align:center; margin-top:30px;">
+    <div style="text-align:center;">
 <?php if (isset($_SESSION['email'])): ?>
-    <h2>Bem-vindo, Dr(a). <?= htmlspecialchars($_SESSION['email']) ?></h2>
-    <button onclick="location.href='agendaPessoal.php'">Agenda Pessoal</button>
-    <button onclick="location.href='../view/selecionar_consulta.php'">Registrar Diagnóstico</button>
-    <button onclick="location.href='../view/buscar_consulta_por_paciente.php'">Obter Relatório do Paciente</button>
-    <button onclick="location.href='?logout=true'">Sair</button>
+    <div class="top-bar">
+            <div>MedControl 🩺</div>
+            <div>ÁREA DO MÉDICO</div>
+        </div>
+
+    <div class="main">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="?action=agenda_pessoal">AGENDA PESSOAL</a>
+        <a href="?action=registrar_diagnostico">REGISTRAR DIAGNÓSTICO</a>
+        <a href="?action=relatorio_paciente">RELATÓRIO DO PACIENTE</a>
+        <a href="?logout=true">SAIR</a>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="content">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Ícone usuário" width="80" height="80">
+        <h2><?= htmlspecialchars($_SESSION['assistente']) ?></h2>
+
+        <?php
+        $action = $_GET['action'] ?? '';
+
+        switch ($action) {
+            case 'agenda_pessoal':
+                header("Location: agendaPessoal.php");
+                exit;
+
+            case 'registrar_diagnostico':
+                header("Location: ../view/selecionar_consulta.php");
+                exit;
+
+            case 'relatorio_paciente':
+                header("Location: ../view/buscar_consulta_por_paciente.php");
+                exit;
+
+            default:
+                echo "<p>Selecione uma opção no menu à esquerda.</p>";
+                break;
+        }
+        ?>
+    </div>
+</div>
 
 <?php else: ?>
     <h2>Login Médico</h2>

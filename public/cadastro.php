@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
+    <link rel="stylesheet" href="../css/home.css">
 </head>
 <body>
-    <h2>Escolha uma opção de cadastro:</h2>
-    <a href="../view/form_incluir_medico.php"><button>Cadastrar Médico</button></a>
-    <a href="../view/form_incluir_assistente.php"><button>Cadastrar Assistente</button></a>
+    <div class="button-container">
+        <a href="../view/form_incluir_medico.php"><button>Cadastrar Médico</button></a>
+        <a href="../view/form_incluir_assistente.php"><button>Cadastrar Assistente</button></a>
+    </div>
 </body>
 </html>

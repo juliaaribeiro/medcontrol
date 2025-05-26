@@ -37,102 +37,51 @@ $pacientes = $pacienteController->listarTodos();
 <head>
     <meta charset="UTF-8" />
     <title>Editar Consulta</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: #f9f9f9;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        h2 {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        label {
-            display: block;
-            margin-top: 15px;
-            font-weight: bold;
-        }
-        input[type="datetime-local"],
-        select,
-        textarea {
-            width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
-            font-size: 14px;
-            resize: vertical;
-        }
-        button {
-            margin-top: 20px;
-            padding: 12px 20px;
-            background-color: #4CAF50;
-            color: white;
-            font-size: 16px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            width: 100%;
-        }
-        button:hover {
-            background-color: #388E3C;
-        }
-        .btn-cancelar {
-            background-color: #888;
-            margin-top: 10px;
-        }
-        .btn-cancelar:hover {
-            background-color: #555;
-        }
-    </style>
+    <link rel="stylesheet" href="../css/form.css">
 </head>
 <body>
-<div class="container">
-    <h2>Editar Consulta</h2>
-    <form action="../public/consulta/editarConsulta.php" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($consulta->getId()) ?>" />
+    <div class="top-bar">
+        <div>MedControl 🩺</div>
+        <div>EDITAR CONSULTA</div>
+    </div>
 
-        <label for="data_hora">Data e Hora:</label>
-        <input type="datetime-local" id="data_hora" name="data_hora"
-               value="<?= date('Y-m-d\TH:i', strtotime($consulta->getDataHora())) ?>" required />
+    <div class="main-content">
+        <div class="container">
+            <form action="../public/consulta/editarConsulta.php" method="POST">
+                <input type="hidden" name="id" value="<?= htmlspecialchars($consulta->getId()) ?>" />
 
-        <label for="medico_email">Médico:</label>
-        <select id="medico_email" name="emailMedico" required>
-            <option value="">Selecione o médico</option>
-            <?php foreach ($medicos as $medico): ?>
-                <option value="<?= htmlspecialchars($medico->getEmail()) ?>"
-                    <?= $medico->getEmail() === $consulta->getMedicoEmail() ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($medico->getNome()) ?> - <?= htmlspecialchars($medico->getEspecializacao()) ?>
-                </option>
-            <?php endforeach; ?>
-        </select>
+                <label for="data_hora">Data e Hora:</label>
+                <input type="datetime-local" id="data_hora" name="data_hora"
+                    value="<?= date('Y-m-d\TH:i', strtotime($consulta->getDataHora())) ?>" required />
 
-        <label for="paciente_cpf">Paciente:</label>
-        <select id="paciente_cpf" name="cpf" required>
-            <option value="">Selecione o paciente</option>
-            <?php foreach ($pacientes as $paciente): ?>
-                <option value="<?= htmlspecialchars($paciente->getCpf()) ?>"
-                    <?= $paciente->getCpf() === $consulta->getPacienteCpf() ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($paciente->getNome()) ?> (CPF: <?= htmlspecialchars($paciente->getCpf()) ?>)
-                </option>
-            <?php endforeach; ?>
-        </select>
+                <label for="medico_email">Médico:</label>
+                <select id="medico_email" name="emailMedico" required>
+                    <option value="">Selecione o médico</option>
+                    <?php foreach ($medicos as $medico): ?>
+                        <option value="<?= htmlspecialchars($medico->getEmail()) ?>"
+                            <?= $medico->getEmail() === $consulta->getMedicoEmail() ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($medico->getNome()) ?> - <?= htmlspecialchars($medico->getEspecializacao()) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
-        <button type="submit">Salvar Alterações</button>
-    </form>
+                <label for="paciente_cpf">Paciente:</label>
+                <select id="paciente_cpf" name="cpf" required>
+                    <option value="">Selecione o paciente</option>
+                    <?php foreach ($pacientes as $paciente): ?>
+                        <option value="<?= htmlspecialchars($paciente->getCpf()) ?>"
+                            <?= $paciente->getCpf() === $consulta->getPacienteCpf() ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($paciente->getNome()) ?> (CPF: <?= htmlspecialchars($paciente->getCpf()) ?>)
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
-    <form action="../public/consulta/visualizarConsulta.php" method="GET">
-        <button type="submit" class="btn-cancelar">Cancelar</button>
-    </form>
-</div>
+                <button type="submit">Salvar Alterações</button>
+            </form>
+
+            <form action="../public/consulta/visualizarConsulta.php" method="GET">
+                <button type="submit" class="btn-cancelar">Cancelar</button>
+            </form>
+        </div>
 </body>
 </html>
